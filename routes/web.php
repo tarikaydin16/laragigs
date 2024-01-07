@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+ 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/hello', function () {
+    return response("<h1>Hello world</h1>",200)
+    ->header("Content-Type","text/plain");
+});
+
+Route::get("/posts/{id}", function ($id) {
+    // dd($id);
+    ddd($id);
+    return response("id: ".$id,200);
+
+})->where('id','[0-9]+');
+Route::get("/search", function (Request $request) {
+    return($request->name . ' ' . $request->city);
+    
+
 });
