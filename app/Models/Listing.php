@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     use HasFactory;
-    protected $fillable=['title','company','email','location','website','description','tags'];
+    protected $fillable=['title','user_id','logo','company','email','location','website','description','tags'];
     public function scopeFilter($query,array $filters){
         if($filters['tag'] ?? false){
             $query->where('tags','like','%'.request('tag').'%');
@@ -20,5 +20,9 @@ class Listing extends Model
         }
 
 
+    }
+    //relationship to user
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
     }
 }
